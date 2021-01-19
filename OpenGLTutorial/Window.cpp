@@ -16,7 +16,7 @@ Window::Window(int width, int height, const char* title)
 
 	// Definir atributos do contexto OpenGL
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_COMPAT_PROFILE, GL_FALSE);
 
 	glfwSetErrorCallback(Window::errorCallback);
@@ -57,8 +57,6 @@ Window::Window(int width, int height, const char* title)
 
 void Window::update()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	glfwPollEvents();
 
 	if (m_Scene)
