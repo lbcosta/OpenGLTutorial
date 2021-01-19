@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\dep\glfw\include;$(SolutionDir)\dep\glew\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\dep\glfw\lib-vc2019;$(SolutionDir)\dep\glew\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\dep\glfw\lib-vc2019;$(SolutionDir)\dep\glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -143,6 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
