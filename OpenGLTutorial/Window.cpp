@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <iostream>
+#include "Scene.h"
 
 Window::Window(int width, int height, const char* title)
 {
@@ -59,10 +60,14 @@ void Window::update()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glfwPollEvents();
+
+	if (m_Scene)
+		m_Scene->update();
+
 	glfwSwapBuffers(m_Window);
 
 	if (!m_ShouldClose)
-		m_ShouldClose = glfwWindowShouldClose(m_Window);
+		m_ShouldClose = (glfwWindowShouldClose(m_Window) == GL_TRUE);
 }
 
 Window::~Window()
