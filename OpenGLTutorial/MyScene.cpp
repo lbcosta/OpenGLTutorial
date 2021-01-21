@@ -74,9 +74,49 @@ MyScene::MyScene()
 	glLinkProgram(m_ShaderProgram);
 	checkProgramLink(m_ShaderProgram);
 
-	glUseProgram(m_ShaderProgram);
+	m_Vertices = new GLfloat[18]{
+		-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+	};
 
-	glClearColor(0.5f, 0.5f, 1, 0);
+	// Armazenar os vertices no Vertex Buffer
+	glGenBuffers(1, &m_VBO);
+
+	// Criar um ID na GPU para um array de Buffers
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+
+	// Vertices e atributos de vertices: GL_ARRAY_BUFFER
+	glBufferData(GL_ARRAY_BUFFER,
+		18 * sizeof(GL_FLOAT),
+		m_Vertices,
+		GL_STATIC_DRAW);
+
+	// Informar a API como interpretar os dados do m_Vertices
+	// Especificando vertices
+	glVertexAttribPointer(0,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		6 * sizeof(GLfloat),
+		(GLvoid*)0);
+
+	// Especificando cores
+	glVertexAttribPointer(1,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		6 * sizeof(GLfloat),
+		(GLvoid*)(3 * sizeof(GLfloat)));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	glBindVertexArray(0);
+
 }
 
 MyScene::~MyScene()
@@ -87,4 +127,10 @@ MyScene::~MyScene()
 void MyScene::update()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Instala o programa como parte do pipeline de renderizacao
+	glUseProgram(m_ShaderProgram);
+	glBindVertexArray(m_VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(0);
 }
